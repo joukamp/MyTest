@@ -6,4 +6,29 @@
 
 Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<TabComponent Tabs="@tabs"></TabComponent>
+
+@code 
+{
+    private List<TabComponent.Tab> tabs = new List<TabComponent.Tab>
+    {
+        new TabComponent.Tab { Title = "SurveyPrompt 1", Type = typeof(SurveyPrompt),
+            Parameters = new Dictionary<string, object>()
+            {
+                {"Title", "How is Blazor working for yoo?"}
+            }
+        },
+        new TabComponent.Tab { Title = "SurveyPrompt 2", Type = typeof(SurveyPrompt),
+            Parameters = new Dictionary<string, object>()
+            {
+                {"Title", "Is this working"}
+            }
+        },
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+}

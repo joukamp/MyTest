@@ -1,0 +1,52 @@
+﻿
+<div class="container">
+    <ul class="nav nav-tabs">
+        @foreach (var tab in Tabs)
+        {
+            <li class="nav-item">
+                <button class="nav-link @GetButtonClass(tab)" @onclick="() => SelectTab(tab)">
+                    @tab.Title
+                </button>
+            </li>
+        }
+    </ul>
+    <div class="tab-content">
+        <DynamicComponent Type="@SelectedTab.Type" Parameters="@SelectedTab.Parameters" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<Tab> Tabs { get; set; }
+
+    private Tab SelectedTab { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SelectedTab = Tabs.First();
+    }
+
+    private void SelectTab(Tab tab)
+    {
+        SelectedTab = tab;
+    }
+
+    private string GetButtonClass(Tab tab)
+    {
+        if (tab == SelectedTab)
+        {
+            return "active";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public class Tab
+    {
+        public string Title { get; set; }
+        public Type Type { get; set; }
+        public Dictionary<string, object> Parameters { get; set; }
+    }
+}
