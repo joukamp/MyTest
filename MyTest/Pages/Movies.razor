@@ -1,0 +1,55 @@
+﻿@page "/movies"
+@using MyTest.Models;
+@using MyTest.Services;
+
+@inject IMovieService MovieService
+
+<PageTitle>Movies from TMDB</PageTitle>
+
+@if (detailComponent == null || (detailComponent != null && !detailComponent.IsVisible))
+{  
+    @if (nowPlaying != null)
+    {
+        <div class="container">
+            <div class="row fw-bold">
+                <div class="col">Id</div>
+                <div class="col">Title</div>
+                <div class="col">Original title</div>
+                <div class="col">Original language</div>
+            </div>
+            @foreach (var item in nowPlaying.results)
+            {
+                <div class="row" @onclick="() => SelectMovie(item.id)">
+                    <div class="col">@item.id</div>
+                    <div class="col">@item.title</div>
+                    <div class="col">@item.original_title</div>
+                    <div class="col">@item.original_language</div>
+                </div>
+            }
+        </div>
+    }
+}
+
+<MovieDetailComponent @ref="detailComponent" IsVisibleChanged="DetailVisibleChanged"></MovieDetailComponent>
+
+
+@code {
+    NowPlaying nowPlaying;
+    MovieDetail detail;
+    MovieDetailComponent detailComponent;
+
+    protected override async Task OnInitializedAsync()
+    {
+        nowPlaying = await MovieService.GetNowPlaying();
+    }
+
+    async Task SelectMovie(int id)
+    {
+        detail = await MovieService.GetDetailAsync(id);
+        detailComponent.Show(detail);
+    }
+
+    void DetailVisibleChanged(bool visible)
+    {
+    }
+}

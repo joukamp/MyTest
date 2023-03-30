@@ -1,0 +1,91 @@
+﻿@using MyTest.Models;
+@using MyTest.Shared;
+@using MyTest.Services;
+@inject IMovieService MovieService
+
+@if (IsVisible)
+{
+    <h3>MovieDetailComponent</h3>
+
+    <EditForm Model="movie" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <InputNumber disabled id="id" class="form-control" @bind-Value="movie.id" />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="name">Homepage</label>
+                    <InputText id="homepage" class="form-control" @bind-Value="movie.homepage" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="id">Title</label>
+                    <InputText id="title" class="form-control" @bind-Value="movie.title" />
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="name">Original title</label>
+                    <InputText id="original_title" class="form-control" @bind-Value="movie.original_title" />
+                </div>
+            </div>
+        </div>        
+        <ValidationSummary />
+        <div class="mt-2">
+            <button type="submit" class="btn btn-outline-primary">Save</button>
+            <button class="btn btn-outline-primary" @onclick="Close">Close</button>
+        </div>
+    </EditForm>
+
+    <BootstrapToast @ref="toast"></BootstrapToast>
+    
+    
+}
+
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    MovieDetail movie;
+    BootstrapToast toast;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    private void HandleValidSubmit()
+    {
+        // Handle the form submission
+        toast.Show("fake save done");
+    }
+
+    public void Show()
+    {
+        IsVisible = true;
+        //StateHasChanged();
+    }
+
+    public void Show(MovieDetail pmovie)
+    {
+        movie = pmovie;
+        IsVisible = true;
+        //StateHasChanged();
+    }
+
+    private Task Close()
+    {
+        IsVisible = false;
+        //StateHasChanged();
+        return IsVisibleChanged.InvokeAsync(true);    
+    }
+}

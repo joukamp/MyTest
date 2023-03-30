@@ -1,0 +1,7 @@
+﻿@media (min-width: 992px) {
+    .toast {
+        width: 500px; /* Set the max-width to a wider value */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
