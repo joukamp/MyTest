@@ -6,9 +6,9 @@ namespace MyTest.Services
     public class MovieService : IMovieService
     {
         private readonly HttpClient _httpClient;
-        string latestApi = "https://api.themoviedb.org/3/movie/latest?api_key=4db5e6bb54a1734f92e64ea2ac3dcdf5&language=en-US";
-        string nowPlayingApi = "https://api.themoviedb.org/3/movie/now_playing?api_key=4db5e6bb54a1734f92e64ea2ac3dcdf5&language=en-US&page=1";
-        string apiDetail = "https://api.themoviedb.org/3/movie/#?api_key=4db5e6bb54a1734f92e64ea2ac3dcdf5&language=en-US";
+        string latestApi = "https://api.themoviedb.org/3/movie/latest?api_key=47ec7fd89087e33845796b19578d55ad&language=en-US";
+        string nowPlayingApi = "https://api.themoviedb.org/3/movie/now_playing?api_key=47ec7fd89087e33845796b19578d55ad&language=en-US&page=1";
+        string apiDetail = "https://api.themoviedb.org/3/movie/#?api_key=47ec7fd89087e33845796b19578d55ad&language=en-US";
 
         public MovieService(HttpClient httpClient)
         {
